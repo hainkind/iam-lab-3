@@ -1,0 +1,32 @@
+name: Secure Blob Download
+on: 
+  workflow_dispatch: # Allows manual triggering
+
+permissions:
+  id-token: write  # 🔑 Required for requesting the JWT from GitHub
+  contents: read   # 📖 Required for actions/checkout
+
+jobs:
+  download-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to Azure via OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Download Blob
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            az storage blob download \
+              --account-name <YourStorageAccount> \
+              --container-name <YourContainer> \
+              --name "data-file.csv" \
+              --file "./downloaded-data.csv" \
+              --auth-mode login
