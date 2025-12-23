@@ -25,8 +25,8 @@ jobs:
         with:
           inlineScript: |
             az storage blob download \
-              --account-name <YourStorageAccount> \
-              --container-name <YourContainer> \
-              --name "data-file.csv" \
-              --file "./downloaded-data.csv" \
+              --account-name iamazurelab3ec6e70fa \
+              --container-name flag \
+              --name "flag.txt" \
+              --file "./flag.txt" \
               --auth-mode login
