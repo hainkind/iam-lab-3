@@ -28,5 +28,4 @@ jobs:
               --account-name iamazurelab3ec6e70fa \
               --container-name flag \
               --name "flag.txt" \
-              --file "./flag.txt" \
               --auth-mode login
